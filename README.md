@@ -30,3 +30,14 @@ alx-project-0x02/
 ├── package.json
 ├── README.md
 └── tsconfig.json
+# ALX Project 0x02 – Next.js Setup
+
+This project was created using **Next.js**, **TypeScript**, **Tailwind CSS**, and **ESLint**.  
+It serves as the starting point for building reusable components, pages, and API integrations.
+
+## Development
+
+Start the development server:
+
+```bash
+npm run dev -- -p 3000
