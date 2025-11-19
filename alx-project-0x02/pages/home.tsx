@@ -1,33 +1,43 @@
-import React from "react";
-import Header from "@/components/layout/Header";
-import Card from "@/components/common/Card";
+import React, { useState } from "react";
+import PostModal from "@/components/common/PostModal";
 
-const HomePage: React.FC = () => {
+const Home: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [posts, setPosts] = useState<
+    { title: string; content: string }[]
+  >([]);
+
+  const handleAddPost = (post: { title: string; content: string }) => {
+    setPosts((prev) => [...prev, post]);
+  };
+
   return (
-    <div>
-      <Header />
-      <main className="p-6">
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Home</h1>
 
-        <h1 className="text-3xl font-bold mb-6">Home Page</h1>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="px-4 py-2 bg-blue-600 text-white rounded"
+      >
+        Create Post
+      </button>
 
-        <Card
-          title="Welcome to the Project"
-          content="This project demonstrates Next.js routing and reusable components."
-        />
+      <PostModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleAddPost}
+      />
 
-        <Card
-          title="Dynamic Components"
-          content="The Card component accepts props to render different content."
-        />
-
-        <Card
-          title="Next Steps"
-          content="Continue building more components as you progress through the tasks."
-        />
-
-      </main>
+      <div className="mt-6 space-y-4">
+        {posts.map((post, index) => (
+          <div key={index} className="p-4 border rounded">
+            <h2 className="text-lg font-semibold">{post.title}</h2>
+            <p>{post.content}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default HomePage;
+export default Home;
