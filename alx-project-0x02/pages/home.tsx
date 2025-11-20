@@ -1,43 +1,43 @@
 import React, { useState } from "react";
+import Header from "@/components/layout/Header";
+import Card from "@/components/common/Card";
 import PostModal from "@/components/common/PostModal";
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [posts, setPosts] = useState<
-    { title: string; content: string }[]
-  >([]);
+  const [posts, setPosts] = useState<{ title: string; content: string }[]>([]);
 
   const handleAddPost = (post: { title: string; content: string }) => {
     setPosts((prev) => [...prev, post]);
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Home</h1>
+    <div>
+      <Header />
+      <main className="p-6">
+        <h1 className="text-3xl font-bold mb-6">Home Page</h1>
 
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="px-4 py-2 bg-blue-600 text-white rounded"
-      >
-        Create Post
-      </button>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="px-4 py-2 bg-blue-600 text-white rounded mb-4"
+        >
+          Create Post
+        </button>
 
-      <PostModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleAddPost}
-      />
+        <PostModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleAddPost}
+        />
 
-      <div className="mt-6 space-y-4">
-        {posts.map((post, index) => (
-          <div key={index} className="p-4 border rounded">
-            <h2 className="text-lg font-semibold">{post.title}</h2>
-            <p>{post.content}</p>
-          </div>
-        ))}
-      </div>
+        <div className="space-y-4">
+          {posts.map((post, index) => (
+            <Card key={index} title={post.title} content={post.content} />
+          ))}
+        </div>
+      </main>
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
